@@ -94,10 +94,10 @@ public class FlashlightPlugin implements MethodCallHandler {
         if (call.method.equals("hasFlashlight")) {
             result.success(hasFlashlight);
         } else if (call.method.equals("lightOn")) {
-            turnLight(true);
+            turnLight(result, true);
             result.success(null);
         } else if (call.method.equals("lightOff")) {
-            turnLight(false);
+            turnLight(result, false);
             result.success(null);
         } else {
             result.notImplemented();
@@ -107,14 +107,14 @@ public class FlashlightPlugin implements MethodCallHandler {
     /**
      * set the flash light on/off
      */
-    private void turnLight(boolean on) {
+    private void turnLight(Result result, boolean on) {
         if (!hasFlashlight) {
             return;
         } else if (VERSION.SDK_INT >= VERSION_CODES.M) {
             try {
                 cameraManager.setTorchMode(cameraId, on);
             } catch (CameraAccessException e) {
-                // do nothing.
+                result.error("TORCH_ERROR", e.toString(), e);
             }
         } else {
             if (_camera == null) {
