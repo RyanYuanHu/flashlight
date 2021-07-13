@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flashlight/flashlight.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,14 +35,14 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: Column(
           children: <Widget>[
-            Text(_hasFlashlight
+            Text(_hasFlashlight!
                 ? 'Your phone has a Flashlight.'
                 : 'Your phone has no Flashlight.'),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Turn on'),
               onPressed: () => Flashlight.lightOn(),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Turn off'),
               onPressed: () => Flashlight.lightOff(),
             )
